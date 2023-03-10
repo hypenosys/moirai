@@ -58,7 +58,7 @@ def read_page(page_url):
                     raise ValueError
                 break
             except ValueError:
-                print(f"Opción inválida. Por favor introduce un número entre 1 y {len(options_links)}.")
+                print(f"Opción inválida. Por favor introduce un número entre 1 y {len(options_links)}. Pulsa 0 para salir.")
 
     return "http://elvertederodeelinventor.wikidot.com" + options_links[selected_option - 1]
 
