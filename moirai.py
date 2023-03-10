@@ -17,9 +17,17 @@ def read_page(page_url):
     main_content = soup.find('div', {'id': 'main-content'})
     page_title = main_content.find('div', {'id': 'page-title'}).text.strip("\n").strip(" ")
     page_content = main_content.find('div', {'id': 'page-content'})
-    # image = page_content.find('img')['src']
+
+    # incluir cualquier texto antes del primer p
+    first_p = page_content.find('p')
+    if first_p.previous_sibling:
+        context.append(first_p.previous_sibling.strip())
+
     p_elements = page_content.find_all('p')
+
+    print()
     print(page_title)
+    print("*" * 50)
     for p in p_elements:
         a = p.find('a')
         if a and 'href' in a.attrs:
@@ -31,6 +39,8 @@ def read_page(page_url):
     for sentence in context:
         print(sentence)
 
+    print("=" * 50)
+    print()
     i = 0
     for option in options_text:
         print(str(i + 1) + option)
@@ -42,7 +52,7 @@ def read_page(page_url):
         while True:
             try:
                 selected_option = int(input("Por favor, elige tu opción: "))
-                if selected_option == 'exit' or selected_option == 'salir':
+                if selected_option == 0:
                     exit(0)
                 if selected_option < 1 or selected_option > len(options_links):
                     raise ValueError
@@ -55,6 +65,7 @@ def read_page(page_url):
 
 def main():
     current_page = "http://elvertederodeelinventor.wikidot.com/moirai-inicio"
+    print("Escribe 0 para salir del juego.")
     while True:
         next_page = read_page(current_page)
         if next_page == "final":
