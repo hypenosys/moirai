@@ -57,7 +57,7 @@ def display_fake_context(context):
 # Argument 3: List of the options for the user to select
 def create_page_and_return_selected_option_link(page_name, page_context, options_text, options_links):
     display_context(page_name, page_context)
-    print(colorama.Fore.GREEN + "=" * 50 + colorama.Fore.RESET + "\n")
+    print(colorama.Fore.GREEN + "=" * 50 + colorama.Fore.CYAN + "\n")
     display_options(options_text)
     return get_next_page_link(options_links)
 
@@ -66,14 +66,12 @@ def create_page_and_return_selected_option_link(page_name, page_context, options
 # Argument 1: Name of the level (edited)
 # Argument 2: List holding the context of the level (edited)
 # Argument 3: List of the options for the user to select (edited)
-def create_page_from_scratch_and_return_selected_option_link(page_name, page_context, options_text):
-    print(colorama.Fore.RESET)
-    print(page_name + "\n")
-    print("*" * 50)
-    print(colorama.Fore.GREEN)
-    display_fake_context(page_context)
-    print(colorama.Fore.RESET)
-    print("=" * 50 + "\n")
+def create_page_from_scratch_and_return_selected_option_link(page_name, page_context, options_text, options_links):
+    display_context(page_name, page_context)
+    print(colorama.Fore.GREEN + "=" * 50 + colorama.Fore.RESET + "\n")
+    print("We need to take out the previous option from the list of options")
+    print("CURRENT OPTIONS LINKS: ", options_links)
+    print("CURRENT OPTION TEXTS: ", options_text)
     print(colorama.Fore.CYAN)
     display_options(options_text)
 
@@ -193,7 +191,7 @@ def get_selected_option(options_links):
             if len(options_links) == 1:
                 return 1
             else:
-                selected_option = int(input("Por favor, elige tu opción:\t"))
+                selected_option = int(input("\n" + colorama.Fore.RESET + "Por favor, elige tu opción:\t"))
             if selected_option == 0:
                 exit(0)
             if selected_option < 1 or selected_option > len(options_links):
@@ -239,9 +237,8 @@ def main():
             print("ERROR:###########################")
 
             print(colorama.Fore.CYAN)
-            print("We need to take out the previous option from the list of options")
 
-            create_page_from_scratch_and_return_selected_option_link(page_title, fake_context, page_options)
+            create_page_from_scratch_and_return_selected_option_link(page_title, fake_context, page_options, page_links)
 
             print(colorama.Fore.RESET)
             exit(1)
