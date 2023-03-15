@@ -93,6 +93,7 @@ def add_element_to_target_list(elem, target_list):
 
 
 def add_element_to_fake_context(fake_context, content):
+    print("FAKE CONTEXT = ", fake_context)
     fake_context.append(content)
 
 
